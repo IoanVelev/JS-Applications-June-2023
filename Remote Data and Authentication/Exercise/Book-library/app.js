@@ -4,9 +4,26 @@ function attachEvents() {
   const loadBtn = document.getElementById("loadBooks");
   const editBtns = document.querySelectorAll('td button');
 
-  loadBtn.addEventListener("click", loadBooks);
   const form = document.querySelector("form");
   form.addEventListener("submit", createBook);
+  loadBtn.addEventListener("click", loadBooks);
+
+  function loadBooks(){
+    fetch(baseUrl)
+    .then(res => res.json())
+    .then(data => displayBooks(data));
+  
+  }
+
+  function postBooks(method, info) {
+    fetch(baseUrl, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    });
+}
 
   function displayBooks(data) {
     tbody.innerHTML = "";
@@ -34,6 +51,7 @@ function attachEvents() {
       trElement.appendChild(tdButtons);
       tbody.appendChild(trElement);
       
+      
     });
   }
 
@@ -45,7 +63,7 @@ function attachEvents() {
     let author = data.get("author");
 
     if (author == "" && title == "") {
-      return;
+      return alert('Invalid input, please try again.');
     }
 
 
@@ -53,27 +71,13 @@ function attachEvents() {
       author,
       title,
     };
+
     form.reset();
     postBooks("POST", info);
     loadBtn.click();
   }
 
-  function postBooks(method, info) {
-      fetch(baseUrl, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(info),
-      });
-  }
-
-  function loadBooks(){
-    fetch(baseUrl)
-    .then(res => res.json())
-    .then(data => displayBooks(data));
-
-  }
+  
 
   function editBooks(e) {
     const id = e.target.parentNode.parentNode.id;
