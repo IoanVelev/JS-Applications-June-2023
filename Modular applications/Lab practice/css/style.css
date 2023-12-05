@@ -1,0 +1,24 @@
+.movie-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.movie-card {
+    margin: 5px;
+    width: 200px;
+}
+
+.login-page {
+   width: 840px;
+   margin: auto;
+}
+
+.register-page {
+    width: 840px;
+    margin: auto;
+ }
+
+.nav-item {
+    padding-right: 20px;
+}
