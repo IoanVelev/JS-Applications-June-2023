@@ -24,7 +24,7 @@ if (method != 'GET') {
 
 try {
     return fetch(url, options).then(res => {
-        if (res.status != 204 && res.ok != true) {
+        if (res.status != 200 && res.ok != true) {
             throw new Error(res.message);
         } 
 
